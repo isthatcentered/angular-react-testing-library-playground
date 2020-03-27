@@ -2,6 +2,7 @@ import { Component, Input, NgModule } from "@angular/core"
 import { CompoundToggleModule } from "./compound-toggle.module"
 import { PaddedValueDirective } from "./padded-value.directive"
 import { CommonModule } from "@angular/common"
+import { RenderPropToggleModule } from './render-prop-toggle.module';
 
 @Component({
   selector: "showcase",
@@ -17,7 +18,7 @@ export class ShowcaseComponent {
   name!: string
 }
 
-const modules = [CompoundToggleModule, CommonModule]
+const modules = [CompoundToggleModule, CommonModule, RenderPropToggleModule]
 const declarations = [PaddedValueDirective, ShowcaseComponent]
 
 @NgModule({

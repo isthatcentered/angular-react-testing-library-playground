@@ -9,7 +9,7 @@ import {
 import { CommonModule } from "@angular/common"
 
 @Component({
-  selector: "app-toggle-off",
+  selector: "compound-toggle-off",
   template: `
     <ng-content *ngIf="!toggleDirective.checked"></ng-content>
   `,
@@ -19,7 +19,7 @@ export class CompoundToggleOffComponent {
 }
 
 @Component({
-  selector: "app-toggle-on",
+  selector: "compound-toggle-on",
   template: `
     <ng-content *ngIf="toggleDirective.checked"></ng-content>
   `,
@@ -29,7 +29,7 @@ export class CompoundToggleOnComponent {
 }
 
 @Component({
-  selector: "app-toggle-button",
+  selector: "compound-toggle-button",
   template: `
     <label class="block pb-4">
       <input
@@ -50,7 +50,7 @@ export class CompoundToggleButtonComponent {
 }
 
 @Directive({
-  selector: "app-toggle, [app-toggle]",
+  selector: "app-toggle, [compound-toggle]",
 })
 export class CompoundToggleDirective {
   @Output()

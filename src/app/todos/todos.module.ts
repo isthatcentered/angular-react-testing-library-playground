@@ -30,11 +30,25 @@ class TodosService {
 @Component({
   selector: "app-todos-list",
   template: `
+    <showcase name="Render prop toggle">
+      <render-prop-toggle [on]="true" (onToggle)="handleToggle($event)">
+        <ng-template let-on="on" let-toggle="toggle">
+          <div class="pb-2">{{ on ? "😍" : "🤯" }}</div>
+          <button
+            class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
+            (click)="toggle()"
+          >
+            Toggle
+          </button>
+        </ng-template>
+      </render-prop-toggle>
+    </showcase>
+
     <showcase name="Compound toggle">
-      <div app-toggle (onToggle)="handleToggle($event)">
-        <app-toggle-button></app-toggle-button>
-        <app-toggle-on>😍</app-toggle-on>
-        <app-toggle-off>😵</app-toggle-off>
+      <div compound-toggle (onToggle)="handleToggle($event)">
+        <compound-toggle-button></compound-toggle-button>
+        <compound-toggle-on>😍</compound-toggle-on>
+        <compound-toggle-off>😵</compound-toggle-off>
       </div>
     </showcase>
 
@@ -71,7 +85,7 @@ export class TodosListComponent implements OnInit {
   }
 
   handleToggle($event: boolean) {
-    console.log("user:::", $event)
+    log("Event")($event)
   }
 }
 
