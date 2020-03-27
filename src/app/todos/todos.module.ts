@@ -6,7 +6,7 @@ import { EMPTY, Observable } from "rxjs"
 import { HttpClient } from "@angular/common/http"
 import { catchError, tap } from "rxjs/operators"
 import log from "@isthatcentered/log"
-import { ExamplesModule } from "../examples/examples.modules"
+import { ExamplesModule } from "../examples/examples.module"
 
 type Todo = { label: string; completed: boolean }
 
@@ -30,14 +30,33 @@ class TodosService {
 @Component({
   selector: "app-todos-list",
   template: `
+    <showcase name="Toggler directive">
+      <ng-template #hint
+        >Check the
+        <code>DOM</code>
+        for
+        <code>role</code>
+        and
+        <code>aria-checked</code>
+        attribute</ng-template
+      >
+
+      <button class="mb-4" role="waffle" appButton toggler [on]="true">
+        Custom role
+      </button>
+      <br />
+      <button class="mb-4" appButton toggler [on]="true">
+        on = true
+      </button>
+      <br />
+      <button appButton toggler [on]="false">on = false</button>
+    </showcase>
+
     <showcase name="Render prop toggle">
       <render-prop-toggle [on]="true" (onToggle)="handleToggle($event)">
         <ng-template let-on="on" let-toggle="toggle">
           <div class="pb-2">{{ on ? "😍" : "🤯" }}</div>
-          <button
-            class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150"
-            (click)="toggle()"
-          >
+          <button appButton (click)="toggle()">
             Toggle
           </button>
         </ng-template>
