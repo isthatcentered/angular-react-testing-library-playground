@@ -1,15 +1,16 @@
-import { Component } from "@angular/core";
+import { Component } from "@angular/core"
 
 @Component({
   selector: "app-root",
   template: `
     <main class="p-4 max-w-2xl mx-auto">
-      <app-signup></app-signup>
+      <a routerLink="/todos">Todos</a>
+      <!--      <app-signup></app-signup>-->
+      <router-outlet></router-outlet>
     </main>
-    <router-outlet></router-outlet>
   `,
-  styles: []
+  styles: [],
 })
 export class AppComponent {
-  title = "reactive-forms";
+  title = "reactive-forms"
 }
