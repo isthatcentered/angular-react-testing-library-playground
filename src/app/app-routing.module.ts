@@ -12,6 +12,18 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: "validations",
+    children: [
+      {
+        path: "",
+        loadChildren: () =>
+          import("./validations/validations.module").then(
+            m => m.ValidationsModule,
+          ),
+      },
+    ],
+  },
 ]
 
 @NgModule({
