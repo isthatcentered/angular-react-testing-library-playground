@@ -1,17 +1,16 @@
 import {
   AfterContentInit,
-  AfterViewInit,
   Component,
   ContentChild,
   Input,
   NgModule,
-  ViewChild,
 } from "@angular/core"
 import { CompoundToggleModule } from "./compound-toggle.module"
 import { CommonModule } from "@angular/common"
 import { RenderPropToggleModule } from "./render-prop-toggle.module"
 import { DirectivesModule } from "./directives/directives.module"
 import { Maybe } from "../form/form-control/text-control.component"
+import { ComponentsModule } from "./components/components.module"
 
 @Component({
   selector: "showcase",
@@ -41,9 +40,7 @@ export class ShowcaseComponent implements AfterContentInit {
   @ContentChild("hint")
   hintTemplate: any
 
-  ngAfterContentInit(): void {
-    console.log(this.hintTemplate)
-  }
+  ngAfterContentInit(): void {}
 }
 
 const modules = [
@@ -51,6 +48,7 @@ const modules = [
   CommonModule,
   RenderPropToggleModule,
   DirectivesModule,
+  ComponentsModule,
 ]
 const declarations = [ShowcaseComponent]
 
