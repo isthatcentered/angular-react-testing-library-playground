@@ -1,12 +1,14 @@
 import { NgModule } from "@angular/core"
 import { CommonModule } from "@angular/common"
-import { TabsModule } from "./tabs/tabs.module"
+import { TabsModule } from "./tabs/tabs.module";
+import { FormDebugComponent } from './form-debug/form-debug.component'
+import { TableModule } from './table.module';
 
-const modules = [TabsModule]
+const modules = [TabsModule, TableModule]
 
 @NgModule({
-  declarations: [],
+  declarations: [FormDebugComponent],
   imports: [CommonModule, ...modules],
-  exports: [...modules],
+  exports: [ ...modules, FormDebugComponent ],
 })
 export class ComponentsModule {}

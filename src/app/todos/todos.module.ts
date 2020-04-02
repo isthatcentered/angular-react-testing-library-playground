@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http"
 import { catchError, tap } from "rxjs/operators"
 import log from "@isthatcentered/log"
 import { ExamplesModule } from "../examples/examples.module"
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from "@angular/forms"
 
 type Todo = { label: string; completed: boolean }
 
@@ -31,6 +31,20 @@ class TodosService {
 @Component({
   selector: "app-todos-list",
   template: `
+    <showcase name="Table">
+      <examples-table
+        [config]="{
+          headers: ['book', 'author'],
+          items: [
+            { book: 'Im Batman', author: 'Bruce Wayne' },
+            { book: 'Smores are the shit', author: 'John Rambo' }
+          ]
+        }"
+      >
+        <ng-template let-item let-row="row">{{ item[row] }} {{ row}}</ng-template>
+      </examples-table>
+    </showcase>
+
     <showcase name="Nested Tabs">
       <div tabs class="tabs">
         <nav tabControls="Entertainment" class="flex">
@@ -196,7 +210,6 @@ class TodosService {
   `,
 })
 export class TodosListComponent implements OnInit {
-
   todos$: Observable<Todo[]> = this._todos.todos$
 
   constructor(private _title: Title, private _todos: TodosService) {}

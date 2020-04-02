@@ -1,15 +1,21 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core"
+import { CommonModule } from "@angular/common"
 
-import { ValidationsRoutingModule } from './validations-routing.module';
-import { ValidationsComponent } from './validations.component';
-
+import { ValidationsRoutingModule } from "./validations-routing.module"
+import {
+  CellWatcherDirective,
+  ValidationsComponent,
+} from "./validations.component"
+import { ExamplesModule } from "../examples/examples.module"
+import { ReactiveFormsModule } from "@angular/forms"
 
 @NgModule({
-  declarations: [ValidationsComponent],
+  declarations: [CellWatcherDirective, ValidationsComponent],
   imports: [
     CommonModule,
-    ValidationsRoutingModule
-  ]
+    ValidationsRoutingModule,
+    ExamplesModule,
+    ReactiveFormsModule,
+  ],
 })
-export class ValidationsModule { }
+export class ValidationsModule {}
