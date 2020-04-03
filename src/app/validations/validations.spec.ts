@@ -45,11 +45,10 @@ test(`I can patch nested form arrays`, () => {
 })
 
 test(`Testing assigned validators`, () => {
-  const field1 = new FormControl("", Validators.required),
+  const email = new FormControl("", Validators.required),
     field2 = new FormControl("")
 
-  const group = new FormGroup({}, Validators.required)
-
+  const group = new FormArray([], Validators.required)
 
   expect(group.errors).toEqual({
     required: true,

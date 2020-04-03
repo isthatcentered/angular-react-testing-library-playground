@@ -90,6 +90,10 @@ export class CellWatcherDirective implements OnInit, OnDestroy {
   selector: "app-validations",
   template: `
     <div class="pt-4"></div>
+    <showcase name="Matching emails validation">
+      <validations-matching-emails-validation></validations-matching-emails-validation>
+    </showcase>
+
     <table class="mb-4">
       <tr *ngFor="let field of fields">
         <th class="p-2 border border-gray-200 bg-gray-100" scope="row">

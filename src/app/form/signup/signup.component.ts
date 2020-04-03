@@ -7,17 +7,7 @@ import {
   Validators,
 } from "@angular/forms"
 import { ReplaySubject } from "rxjs"
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  pairwise,
-  scan,
-  startWith,
-  takeUntil,
-  tap,
-} from "rxjs/operators"
-import log from "@isthatcentered/log"
+import { startWith, takeUntil, tap } from "rxjs/operators"
 
 const matchingFields = (...fieldNames: string[]): ValidatorFn => control => {
   const controls = fieldNames.map(name => control.get(name))
