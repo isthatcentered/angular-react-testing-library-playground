@@ -8,17 +8,16 @@ export class ButtonDirective implements OnInit {
 
   ngOnInit(): void {
     ;[
-      "shadow-sm",
       "inline-flex",
       "items-center",
-      "px-2.5",
-      "py-1.5",
+      "px-4",
+      "py-2",
       "border",
       "border-gray-300",
-      "text-xs",
-      "leading-4",
+      "text-sm",
+      "leading-5",
       "font-medium",
-      "rounded",
+      "rounded-md",
       "text-gray-700",
       "bg-white",
       "hover:text-gray-500",
