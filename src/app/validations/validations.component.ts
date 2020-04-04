@@ -8,16 +8,11 @@ import {
   OnInit,
   Renderer2,
 } from "@angular/core"
-import {
-  AbstractControl,
-  FormArray,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms"
+import { AbstractControl, Validators } from "@angular/forms"
 import log from "@isthatcentered/log"
 import { Subject } from "rxjs"
 import { takeUntil, tap } from "rxjs/operators"
+import { FormArray, FormControl, FormGroup } from "@ng-stack/forms"
 
 // At which level do validations occur
 // How can i trigger validations for everything
@@ -90,12 +85,40 @@ export class CellWatcherDirective implements OnInit, OnDestroy {
   selector: "app-validations",
   template: `
     <div class="pt-4"></div>
+    <showcase name="Auto control error">
+      // also, see blog post // and then tdd
+
+      <label class="block mb-4">
+        <span>Firstname</span>
+        <input
+          aria-describedby="firstname-errors"
+          appInput
+          [formControl]="form2.get('firstname')"
+          type="text"
+        />
+        <span aria-live="polite" id="firstname-errors" class="block">
+          <shared-control-errors [control]="form2.get('firstname')">
+            <ng-template let-error>
+              <span>{{ error }}</span>
+            </ng-template>
+          </shared-control-errors>
+          <span
+            class="my-4 block"
+            *ngIf="
+              form.get('firstname')?.touched &&
+              form.get('firstname')?.errors?.required
+            "
+            >Don't ignore me! 😳</span
+          >
+        </span>
+      </label>
+    </showcase>
     <showcase name="Reusable form components">
       <validations-reusable-form-components></validations-reusable-form-components>
     </showcase>
-    <showcase name="Forms with async validation"
-      ><validations-async-form-validation></validations-async-form-validation
-    ></showcase>
+    <showcase name="Forms with async validation">
+      <validations-async-form-validation></validations-async-form-validation>
+    </showcase>
     <showcase name="Validations dynamic form controls">
       <validations-dynamic-form-controls></validations-dynamic-form-controls>
     </showcase>
@@ -172,8 +195,16 @@ export class CellWatcherDirective implements OnInit, OnDestroy {
 })
 export class ValidationsComponent implements OnInit {
   log = log
-
-  form: FormGroup = new FormGroup({
+  form2: FormGroup<{ firstname: string }> = new FormGroup({
+    firstname: new FormControl("blah", [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.email,
+    ]),
+  })
+  form: FormGroup = new FormGroup<{
+    array: { hello: string; greeting: string }[]
+  }>({
     array: new FormArray([
       this.makeGroup({
         hello: "John",

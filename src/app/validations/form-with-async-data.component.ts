@@ -31,53 +31,61 @@ class UserService
 @Component( {
    selector: 'validations-form-with-async-data',
    template: `
-    <ng-template #loading>
-      Wait for it... 🙃
-    </ng-template>
-    <form *ngIf="user$ | async as user; else loading" [formGroup]="form">
-      <label class="block mb-4">
-        <span>Firstname</span>
-        <input
-          aria-describedby="firstname-errors"
-          appInput
-          formControlName="firstname"
-          type="text"
-        />
-        <span aria-live="polite" id="firstname-errors" class="block">
+               <ng-template #loading>
+                 Wait for it... 🙃
+               </ng-template>
+               <form *ngIf="user$ | async as user; else loading"
+                     [formGroup]="form">
+                 <label class="block mb-4">
+                   <span>Firstname</span>
+                   <input
+                     aria-describedby="firstname-errors"
+                     appInput
+                     formControlName="firstname"
+                     type="text"
+                   />
+                   <span aria-live="polite"
+                         id="firstname-errors"
+                         class="block">
+          <shared-control-errors [control]="form.get('firstname')"></shared-control-errors>
           <span
             class="my-4 block"
             *ngIf="
               form.get('firstname')?.touched &&
               form.get('firstname')?.errors?.required
             "
-            >Don't ignore me! 😳</span
+          >Don't ignore me! 😳</span
           >
         </span>
-      </label>
-      <label class="block mb-4">
-        <span>Lastname</span>
-        <input
-          aria-describedby="lastname-errors"
-          appInput
-          formControlName="lastname"
-          type="text"
-        />
-        <span aria-live="polite" id="lastname-errors" class="block">
+                 </label>
+                 <label class="block mb-4">
+                   <span>Lastname</span>
+                   <input
+                     aria-describedby="lastname-errors"
+                     appInput
+                     formControlName="lastname"
+                     type="text"
+                   />
+                   <span aria-live="polite"
+                         id="lastname-errors"
+                         class="block">
           <span
             class="mt-2 mb-4 block"
             *ngIf="
               form.get('lastname')?.touched &&
               form.get('lastname')?.errors?.required
             "
-            >Don't ignore me! 😳</span
+          >Don't ignore me! 😳</span
           >
         </span>
-      </label>
-      <button appButton type="submit">Submit</button>
+                 </label>
+                 <button appButton
+                         type="submit">Submit
+                 </button>
 
-<!--      <examples-form-debug [form]="form.get('firstname')"></examples-form-debug>-->
-    </form>
-  `,
+                 <!--      <examples-form-debug [form]="form.get('firstname')"></examples-form-debug>-->
+               </form>
+             `,
 } )
 export class FormWithAsyncDataComponent implements OnInit
 {
