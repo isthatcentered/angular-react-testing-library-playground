@@ -6,11 +6,13 @@ import { AppComponent } from "./app.component"
 import { FormModule } from "./form/form.module"
 import { HttpClientModule } from "@angular/common/http"
 import { ExamplesModule } from "./examples/examples.module"
+import { CommonModule } from "@angular/common"
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     FormModule,
     HttpClientModule,

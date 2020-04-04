@@ -5,10 +5,16 @@ import { Component } from "@angular/core"
   template: `
     <main class="p-4 max-w-2xl mx-auto">
       <nav>
-        <a class="mr-4 text-blue-600 underline" routerLink="/todos">Todos</a>
-        <a class="mr-4 text-blue-600 underline" routerLink="/validations"
-          >Validations</a
-        >
+        <ul class="flex items-center">
+          <li *ngFor="let item of nav">
+            <a
+              class="capitalize mr-4 text-gray-600 underline"
+              [routerLink]="item"
+              routerLinkActive="text-indigo-600"
+              >{{ item }}</a
+            >
+          </li>
+        </ul>
       </nav>
       <!--      <app-signup></app-signup>-->
       <router-outlet></router-outlet>
@@ -17,5 +23,5 @@ import { Component } from "@angular/core"
   styles: [],
 })
 export class AppComponent {
-  title = "reactive-forms"
+  nav = ["todos", "validations", "testing"]
 }
