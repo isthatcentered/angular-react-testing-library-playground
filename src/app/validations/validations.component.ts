@@ -90,6 +90,12 @@ export class CellWatcherDirective implements OnInit, OnDestroy {
   selector: "app-validations",
   template: `
     <div class="pt-4"></div>
+    <showcase name="Reusable form components">
+      <validations-reusable-form-components></validations-reusable-form-components>
+    </showcase>
+    <showcase name="Forms with async validation"
+      ><validations-async-form-validation></validations-async-form-validation
+    ></showcase>
     <showcase name="Validations dynamic form controls">
       <validations-dynamic-form-controls></validations-dynamic-form-controls>
     </showcase>
