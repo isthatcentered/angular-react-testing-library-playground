@@ -6,6 +6,7 @@ import {
   Renderer2,
 } from "@angular/core"
 import { CommonModule } from "@angular/common"
+import { ControlErrorComponent } from "./control-error.component"
 
 @Directive({
   selector: "[appInput]",
@@ -43,7 +44,7 @@ export class InputDirective implements OnInit {
   }
 }
 
-const declarations = [InputDirective]
+const declarations = [InputDirective, ControlErrorComponent]
 
 @NgModule({
   declarations: [...declarations],
