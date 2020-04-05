@@ -2,10 +2,10 @@ import { NgModule } from "@angular/core"
 import { CommonModule } from "@angular/common"
 
 import { TestingRoutingModule } from "./testing-routing.module"
-import { TestingHomePageComponent } from "./testing-home-page.component"
+import { EventsHomeModule } from "./events/event-home/events-home.component"
 
 @NgModule({
-  declarations: [TestingHomePageComponent],
-  imports: [CommonModule, TestingRoutingModule],
+  declarations: [],
+  imports: [CommonModule, TestingRoutingModule, EventsHomeModule],
 })
 export class TestingModule {}
