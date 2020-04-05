@@ -51,8 +51,6 @@ describe("ValidationBorderDirective", () => {
         control: markAsDirty(createInvalid()),
       })
 
-      utils.debug(input)
-
       expect(input.style.borderStyle).toBe("solid")
       expect(input.style.borderWidth).toBe(props.config.borderWidth)
       expect(input.style.borderColor).toBe(props.config.colors?.INVALID)
