@@ -41,7 +41,9 @@ class TodosService {
           ]
         }"
       >
-        <ng-template let-item let-row="row">{{ item[row] }} {{ row}}</ng-template>
+        <ng-template let-item let-row="row">
+          {{ item[row] }} {{ row }}
+        </ng-template>
       </examples-table>
     </showcase>
 

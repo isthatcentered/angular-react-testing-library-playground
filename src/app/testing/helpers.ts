@@ -1,12 +1,12 @@
-import { ComponentFixture } from '@angular/core/testing';
-import { DebugElement, Type } from '@angular/core';
-import { Overwrite } from 'utility-types';
-import { By } from '@angular/platform-browser';
-import { render as angularTestingLibraryRender } from '@testing-library/angular';
-import { RenderComponentOptions, RenderDirectiveOptions } from '@testing-library/angular/lib/models';
-
-
-
+import { ComponentFixture } from "@angular/core/testing"
+import { DebugElement, Type } from "@angular/core"
+import { Overwrite } from "utility-types"
+import { By } from "@angular/platform-browser"
+import { render as angularTestingLibraryRender } from "@testing-library/angular"
+import {
+  RenderComponentOptions,
+  RenderDirectiveOptions,
+} from "@testing-library/angular/lib/models"
 
 export function fake<T>(mock: Partial<T> | string) {
   return mock
@@ -66,4 +66,3 @@ export async function render<ComponentType, WrapperType>(
 export const scenario = describe
 export const context = describe
 export const feature = describe
-

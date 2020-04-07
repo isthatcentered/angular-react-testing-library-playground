@@ -12,6 +12,12 @@ type TableConfig = {
   items: { book: string; author: string }[]
 }
 
+type TableContext = {
+  $implicit: { book: string; author: String }
+  item: { book: string; author: String }
+  row: string
+}
+
 @Component({
   selector: "examples-table",
   template: `
@@ -23,7 +29,11 @@ type TableConfig = {
           <ng-container
             *ngTemplateOutlet="
               template || fallback;
-              context: { $implicit: config.items[colIndex], item: config.items[colIndex], row: header}
+              context: {
+                $implicit: config.items[colIndex],
+                item: config.items[colIndex],
+                row: header
+              }
             "
           >
           </ng-container>
@@ -34,7 +44,7 @@ type TableConfig = {
 })
 export class TableComponent {
   @ContentChild(TemplateRef)
-  template: TemplateRef<any> | undefined
+  template: TemplateRef<TableContext> | undefined
 
   @Input()
   config: TableConfig | undefined
