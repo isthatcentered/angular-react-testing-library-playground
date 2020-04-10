@@ -23,5 +23,5 @@ import { Component } from "@angular/core"
   styles: [],
 })
 export class AppComponent {
-  nav = ["todos", "validations", "testing"]
+  nav = ["todos", "validations", "testing", "playground"]
 }

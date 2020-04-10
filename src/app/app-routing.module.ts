@@ -1,8 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-
-
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
 
 const routes: Routes = [
   {
@@ -21,7 +18,7 @@ const routes: Routes = [
       {
         path: "",
         loadChildren: () =>
-                import("./testing/testing.module").then(m => m.TestingModule),
+          import("./testing/testing.module").then(m => m.TestingModule),
       },
     ],
   },
@@ -33,6 +30,18 @@ const routes: Routes = [
         loadChildren: () =>
           import("./validations/validations.module").then(
             m => m.ValidationsModule,
+          ),
+      },
+    ],
+  },
+  {
+    path: "playground",
+    children: [
+      {
+        path: "",
+        loadChildren: () =>
+          import("./playground/playground.module").then(
+            m => m.PlaygroundModule,
           ),
       },
     ],
