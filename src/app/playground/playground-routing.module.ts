@@ -1,12 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { PlaygroundHomeComponent } from './playground-home/playground-home.component';
+import { DynamicTableControlsComponent } from './dynamic-table-controls/dynamic-table-controls.component';
+
+
 
 
 const routes: Routes = [
   {
     path: "",
-    component: PlaygroundHomeComponent
+    component: PlaygroundHomeComponent,
+    children: [
+      {
+        path: "dynamic-table-controls",
+        component:DynamicTableControlsComponent
+      }
+    ]
   }
 ];
 
