@@ -13,6 +13,8 @@ import { TogglerDirective } from "./toggler/toggler.directive"
 import { PaddedValueDirective } from "./padded-value/padded-value.directive"
 import { PracticeComponentsModule } from "../practice-components/practice-components.module"
 import { InputDirective } from "./input/input.directive"
+import { CarouselDirective } from "./carousel/carousel.directive"
+import { FormsModule } from '@angular/forms';
 
 const exports = [
   PracticeDirectiveHomeComponent,
@@ -29,6 +31,7 @@ const exports = [
   TogglerDirective,
   PaddedValueDirective,
   InputDirective,
+  CarouselDirective,
 ]
 @NgModule({
   declarations: [...exports],
@@ -37,6 +40,7 @@ const exports = [
     CommonModule,
     PracticeDirectivesRoutingModule,
     PracticeComponentsModule,
+    FormsModule,
   ],
 })
 export class PracticeDirectivesModule {}

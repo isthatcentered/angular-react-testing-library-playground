@@ -1,8 +1,40 @@
-import { Component, OnInit } from "@angular/core"
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
+
+
 
 @Component({
   selector: "app-practice-directive-home",
   template: `
+    <showcase name="Carousel">
+      <div
+        *carousel="
+          let image of carouselImages;
+          autoplay: carouselAutoplay;
+          withDelay: 3000;
+          let ctrl = controller;
+          let index = index
+        "
+      >
+        <figure>
+          <img
+            class="rounded-sm shadow-sm mb-2 w-full"
+            [alt]="image.alt"
+            [src]="image.path"
+          />
+          <figcaption class="mb-4 italic text-gray-600 text-xs">
+            {{ index }} - {{ image.alt }}
+          </figcaption>
+        </figure>
+
+        <button class="mr-4" (click)="ctrl.prev()">Previous</button>
+        <button class="mr-4" (click)="ctrl.next()">Next</button>
+        <label class="block">
+          <input class="mr-2" type="checkbox" [(ngModel)]="carouselAutoplay" />Autoplay
+        </label>
+      </div>
+    </showcase>
+
     <showcase name="Toggler directive">
       <ng-template #hint
         >Check the
@@ -40,6 +72,24 @@ import { Component, OnInit } from "@angular/core"
   styles: [],
 })
 export class PracticeDirectiveHomeComponent implements OnInit {
+  // Unsplash URL API https://source.unsplash.com/
+  carouselImages: { path: string; alt: string }[] = [
+    {
+      path: "https://source.unsplash.com/random/640x280/?mesa,desert",
+      alt: "A mesa in the desert",
+    },
+    {
+      path: "https://source.unsplash.com/random/640x280/?mesa,outdoor",
+      alt: "A mesa",
+    },
+    {
+      path: "https://source.unsplash.com/random/640x280/?mesa,road",
+      alt: "A mesa on the road",
+    },
+  ]
+
+  carouselAutoplay: boolean = false
+
   constructor() {}
 
   ngOnInit() {}
