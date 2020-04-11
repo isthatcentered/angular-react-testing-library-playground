@@ -6,68 +6,68 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from "@angular/core"
-import Timeout = NodeJS.Timeout
 
-type CarouselContext<T> = {
-  $implicit: T
+type CollectionLens<T> = {
+  current: T
   index: number
-  controller: { next: () => void; prev: () => void }
+  next: () => void
+  prev: () => void
 }
 
-class CarouselContextBehavior<T> implements CarouselContext<T> {
-  $implicit: T
-  controller: { next: () => void; prev: () => void }
-  index: number = 0
+class ArrayLens<T> implements CollectionLens<T> {
+  private _index: number = 0
 
-  constructor(private _items: T[]) {
-    this.$implicit = _items[this.index]
-    this.controller = {
-      next: this._handleNext.bind(this),
-      prev: this._handlePrev.bind(this),
-    }
+  current: T
+
+  set index(index: number) {
+    this._index = index
+    this.current = this.items[index]
   }
 
-  private _handlePrev() {
-    this.index--
-    if (this.index < 0) {
-      this.index = this._items.length - 1
-    }
-
-    this._updateContext()
+  get index() {
+    return this._index
   }
 
-  private _handleNext() {
-    this.index++
-    if (this.index >= this._items.length) {
+  constructor(private items: T[]) {
+    this.current = items[this.index]
+  }
+
+  next() {
+    this.index = this.index + 1
+    if (this.index >= this.items.length) {
       this.index = 0
     }
-
-    this._updateContext()
   }
 
-  _updateContext() {
-    this.$implicit = this._items[this.index]
+  prev() {
+    this.index = this.index - 1
+
+    if (this.index < 0) {
+      this.index = this.items.length - 1
+    }
   }
 }
 
-class AutoplayBehavior {
-  timerId: Timeout | undefined
-  delay: number
+class CarouselContext<T> {
+  private readonly lens: CollectionLens<T>
 
-  constructor(delay: number, private onTickAction: () => void) {
-    this.delay = delay
+  constructor(private _items: T[]) {
+    this.lens = new ArrayLens(_items)
   }
 
-  start() {
-    this.timerId = setInterval(this._onTick.bind(this), this.delay)
+  get $implicit() {
+    return this.lens.current
   }
 
-  stop() {
-    clearInterval(this.timerId!)
+  get index() {
+    return this.lens.index
   }
 
-  private _onTick() {
-    this.onTickAction()
+  get controller() {
+    return {
+      prev: this.lens.prev.bind(this.lens),
+      next: this.lens.next.bind(this.lens),
+    }
   }
 }
 
@@ -81,7 +81,7 @@ export class CarouselDirective<T> implements OnInit, OnDestroy {
 
   @Input("carouselAutoplay")
   set autoplay(autoplay: boolean) {
-    autoplay ? this._autoplay.start() : this._autoplay.stop()
+    autoplay ? this.setAutoplayTimer() : this.clearAutoplayTimer()
   }
 
   @Input("carouselWithDelay")
@@ -89,7 +89,7 @@ export class CarouselDirective<T> implements OnInit, OnDestroy {
 
   private context!: CarouselContext<T>
 
-  private _autoplay!: AutoplayBehavior
+  timerId: number | null = null
 
   constructor(
     private _tpl: TemplateRef<CarouselContext<T>>,
@@ -97,15 +97,22 @@ export class CarouselDirective<T> implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.context = new CarouselContextBehavior(this.items)
+    this.context = new CarouselContext(this.items)
     this._view.createEmbeddedView(this._tpl, this.context)
-    this._autoplay = new AutoplayBehavior(
-      this.delay,
-      this.context.controller.next,
-    )
   }
 
   ngOnDestroy() {
-    this._autoplay.stop()
+    this.clearAutoplayTimer()
+  }
+
+  private clearAutoplayTimer() {
+    window.clearInterval(this.timerId!)
+  }
+
+  private setAutoplayTimer() {
+    this.timerId = window.setInterval(
+      () => this.context.controller.next(),
+      this.delay,
+    )
   }
 }

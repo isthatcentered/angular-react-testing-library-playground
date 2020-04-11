@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl } from '@ng-stack/forms';
+import log from '@isthatcentered/log';
 
 
 
@@ -92,5 +94,12 @@ export class PracticeDirectiveHomeComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+
+    const blah = new FormControl()
+    blah.patchValue({hello: "world"})
+
+    log("value")( blah.value );
+  }
 }
