@@ -1,22 +1,18 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@ng-stack/forms';
-import matchingFieldsValidator from './validators/matching-fields.validator';
-import { Maybe } from '../form/form-control/text-control.component';
+import { Component } from "@angular/core"
+import { FormControl, FormGroup, Validators } from "@ng-stack/forms"
+import matchingFieldsValidator from "./validators/matching-fields.validator"
+import { Maybe } from "../types"
 
-
-
-
-enum FormStatus
-{
-   INITIAL,
-   PENDING,
-   SUCCESS,
-   ERROR,
+enum FormStatus {
+  INITIAL,
+  PENDING,
+  SUCCESS,
+  ERROR,
 }
 
-@Component( {
-   selector: 'validations-matching-emails-validation',
-   template: `
+@Component({
+  selector: "validations-matching-emails-validation",
+  template: `
     <form (ngSubmit)="handleSubmit()">
       <label class="block mb-4">
         <span>Email</span>
@@ -112,79 +108,61 @@ enum FormStatus
 
       <button appButton type="submit" class="">Change email</button>
 
-<!--      <examples-form-debug [form]="form"></examples-form-debug>-->
+      <!--      <examples-form-debug [form]="form"></examples-form-debug>-->
     </form>
   `,
-} )
-export class MatchingEmailsValidationComponent
-{
-   status = FormStatus.INITIAL;
+})
+export class MatchingEmailsValidationComponent {
+  status = FormStatus.INITIAL
 
+  get submitted(): boolean {
+    return this.status !== FormStatus.INITIAL
+  }
 
-   get submitted(): boolean
-   {
-      return this.status !== FormStatus.INITIAL;
-   }
+  form = new FormGroup<
+    { email: string; confirmEmail: string },
+    { required: true; mismatch: true }
+  >(
+    {
+      email: new FormControl<string, { required: true; mismatch: true }>("", {
+        validators: [Validators.required, Validators.email],
+      }),
+      confirmEmail: new FormControl<string, { required: true; mismatch: true }>(
+        "",
+        [Validators.required],
+      ),
+    },
+    [matchingFieldsValidator("email", "confirmEmail")],
+  )
+  FormStatus = FormStatus
 
+  get invalidEmail(): string | undefined {
+    let email = this.form.get("email")
+    return email?.touched && email?.errors?.email
+      ? "Dude, that's obviously not an email"
+      : undefined
+  }
 
-   form = new FormGroup<{ email: string; confirmEmail: string },
-      { required: true; mismatch: true }>(
-      {
-         email:        new FormControl<string, { required: true; mismatch: true }>( '', {
-            validators: [ Validators.required, Validators.email ],
-         } ),
-         confirmEmail: new FormControl<string, { required: true; mismatch: true }>(
-            '',
-            [ Validators.required ],
-         ),
-      },
-      [ matchingFieldsValidator( 'email', 'confirmEmail' ) ],
-   );
-   FormStatus = FormStatus;
+  get requiredEmail(): string | undefined {
+    let email = this.form.get("email")
+    return email?.touched && email?.errors?.required
+      ? "Yo, that shit not optional man"
+      : undefined
+  }
 
+  get nonMatchingEmails(): Maybe<string> {
+    return this.form.get("confirmEmail")?.touched && this.form.errors?.mismatch
+      ? "Bitch those arent matching, you blind or what ?!"
+      : undefined
+  }
 
-   get invalidEmail(): string | undefined
-   {
-      let email = this.form.get( 'email' );
-      return email?.touched && email?.errors?.email
-             ?
-             'Dude, that\'s obviously not an email'
-             :
-             undefined;
-   }
+  handleSubmit() {
+    this.status = FormStatus.PENDING
 
-
-   get requiredEmail(): string | undefined
-   {
-      let email = this.form.get( 'email' );
-      return email?.touched && email?.errors?.required
-             ?
-             'Yo, that shit not optional man'
-             :
-             undefined;
-   }
-
-
-   get nonMatchingEmails(): Maybe<string>
-   {
-      return this.form.get( 'confirmEmail' )?.touched && this.form.errors?.mismatch
-             ?
-             'Bitch those arent matching, you blind or what ?!'
-             :
-             undefined;
-   }
-
-
-   handleSubmit()
-   {
-      this.status = FormStatus.PENDING;
-
-      setTimeout( () => {
-         return (this.status = this.form.valid
-                               ?
-                               FormStatus.SUCCESS
-                               :
-                               FormStatus.ERROR);
-      }, 2000 );
-   }
+    setTimeout(() => {
+      return (this.status = this.form.valid
+        ? FormStatus.SUCCESS
+        : FormStatus.ERROR)
+    }, 2000)
+  }
 }

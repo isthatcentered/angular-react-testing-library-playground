@@ -86,8 +86,6 @@ export class CellWatcherDirective implements OnInit, OnDestroy {
   template: `
     <div class="pt-4"></div>
     <showcase name="Auto control error">
-      // also, see blog post // and then tdd
-
       <label class="block mb-4">
         <span>Firstname</span>
         <input
@@ -113,8 +111,8 @@ export class CellWatcherDirective implements OnInit, OnDestroy {
         </span>
       </label>
     </showcase>
-    <showcase name="Reusable form components">
-      <validations-reusable-form-components></validations-reusable-form-components>
+    <showcase name="Control value accessor component">
+      <validations-control-value-accessor-form-components></validations-control-value-accessor-form-components>
     </showcase>
     <showcase name="Forms with async validation">
       <validations-async-form-validation></validations-async-form-validation>
@@ -127,68 +125,6 @@ export class CellWatcherDirective implements OnInit, OnDestroy {
     </showcase>
     <showcase name="Matching emails validation">
       <validations-matching-emails-validation></validations-matching-emails-validation>
-    </showcase>
-
-    <showcase name="Status playground">
-      <table class="mb-4">
-        <tr *ngFor="let field of fields">
-          <th class="p-2 border border-gray-200 bg-gray-100" scope="row">
-            {{ field }}
-          </th>
-          <ng-container *ngFor="let item of tableArray.controls">
-            <td
-              [tableCellControlWatcher]="control"
-              class="p-2 border border-gray-200"
-              *ngIf="item.get(field) as control"
-            >
-              <input type="text" [formControl]="control" />
-              <pre class="text-xs" *ngIf="control.errors">{{
-                control.errors | json
-              }}</pre>
-            </td>
-          </ng-container>
-        </tr>
-        <tr>
-          <th class="p-2 border border-gray-200 bg-gray-100">GStatus</th>
-          <td
-            class="p-2 border border-gray-200"
-            *ngFor="let group of tableArray.controls"
-          >
-            {{ group.status | json }}
-          </td>
-        </tr>
-        <tr>
-          <th class="p-2 border border-gray-200 bg-gray-100">GErrors</th>
-          <td
-            class="p-2 border border-gray-200"
-            *ngFor="let group of tableArray.controls"
-          >
-            <pre class="text-xs"> {{ group.errors | json }}</pre>
-          </td>
-        </tr>
-      </table>
-
-      <button
-        class="mb-4"
-        appButton
-        (click)="tableArray.updateValueAndValidity()"
-      >
-        Update
-      </button>
-
-      <button class="mb-4" appButton (click)="tableArray.at(0)?.disable()">
-        Disable 1
-      </button>
-      <button class="mb-4" appButton (click)="tableArray.at(1)?.disable()">
-        Disable 2
-      </button>
-      <button class="mb-4" appButton (click)="tableArray.at(2)?.disable()">
-        Disable 3
-      </button>
-      <button class="mb-4" appButton (click)="tableArray.disable()">
-        Disable array
-      </button>
-      <!--    <examples-form-debug [form]="form"></examples-form-debug>-->
     </showcase>
   `,
   styles: [],
@@ -220,12 +156,6 @@ export class ValidationsComponent implements OnInit {
       }),
     ]),
   })
-
-  get tableArray() {
-    return this.form.get("array") as FormArray
-  }
-
-  fields: string[] = Object.keys((this.tableArray.at(0)! as FormGroup).controls)
 
   constructor() {}
 

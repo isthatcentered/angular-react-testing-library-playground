@@ -9,9 +9,9 @@ import { Component } from "@angular/core"
           <li *ngFor="let item of nav">
             <a
               class="capitalize mr-4 text-gray-600 underline"
-              [routerLink]="item"
+              [routerLink]="item.path"
               routerLinkActive="text-indigo-600"
-              >{{ item }}</a
+              >{{ item.label }}</a
             >
           </li>
         </ul>
@@ -23,5 +23,10 @@ import { Component } from "@angular/core"
   styles: [],
 })
 export class AppComponent {
-  nav = ["todos", "validations", "testing", "playground"]
+  nav = [
+    { path: "validations", label: "forms" },
+    { path: "practice-components", label: "components" },
+    { path: "practice-directives", label: "directives" },
+    { path: "playground", label: "playground" },
+  ]
 }

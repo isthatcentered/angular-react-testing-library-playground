@@ -3,26 +3,6 @@ import { RouterModule, Routes } from "@angular/router"
 
 const routes: Routes = [
   {
-    path: "todos",
-    children: [
-      {
-        path: "",
-        loadChildren: () =>
-          import("./todos/todos.module").then(m => m.TodosModule),
-      },
-    ],
-  },
-  {
-    path: "testing",
-    children: [
-      {
-        path: "",
-        loadChildren: () =>
-          import("./testing/testing.module").then(m => m.TestingModule),
-      },
-    ],
-  },
-  {
     path: "validations",
     children: [
       {
@@ -42,6 +22,30 @@ const routes: Routes = [
         loadChildren: () =>
           import("./playground/playground.module").then(
             m => m.PlaygroundModule,
+          ),
+      },
+    ],
+  },
+  {
+    path: "practice-components",
+    children: [
+      {
+        path: "",
+        loadChildren: () =>
+          import("./practice-components/practice-components.module").then(
+            m => m.PracticeComponentsModule,
+          ),
+      },
+    ],
+  },
+  {
+    path: "practice-directives",
+    children: [
+      {
+        path: "",
+        loadChildren: () =>
+          import("./practice-directives/practice-directives.module").then(
+            m => m.PracticeDirectivesModule,
           ),
       },
     ],

@@ -5,9 +5,7 @@ import {
   CellWatcherDirective,
   ValidationsComponent,
 } from "./validations.component"
-import { ExamplesModule } from "../examples/examples.module"
 import { FormsModule } from "@angular/forms"
-import { SharedModule } from "../shared/shared.module"
 import { MatchingEmailsValidationComponent } from "./matching-emails.component.module"
 import { NgStackFormsModule } from "@ng-stack/forms"
 import { FormWithAsyncDataComponent } from "./form-with-async-data.component"
@@ -15,13 +13,15 @@ import { DynamicFormControlsComponent } from "./dynamic-form-controls.component"
 import { AsyncFormValidationComponent } from "./async-form-validation.component"
 import {
   ProfileFormComponent,
-  ReusableFormComponentsComponent,
-} from "./reusable-form-components.component"
+  ControlValueAccessorFormComponentsComponent,
+} from "./control-value-accessor-form-components.component"
+import { PracticeComponentsModule } from "../practice-components/practice-components.module"
+import { PracticeDirectivesModule } from "../practice-directives/practice-directives.module"
 
 @NgModule({
   declarations: [
     ProfileFormComponent,
-    ReusableFormComponentsComponent,
+    ControlValueAccessorFormComponentsComponent,
     AsyncFormValidationComponent,
     FormWithAsyncDataComponent,
     CellWatcherDirective,
@@ -33,9 +33,9 @@ import {
     NgStackFormsModule,
     CommonModule,
     FormsModule,
-    SharedModule,
     ValidationsRoutingModule,
-    ExamplesModule,
+    PracticeComponentsModule,
+    PracticeDirectivesModule,
   ],
 })
 export class ValidationsModule {}
