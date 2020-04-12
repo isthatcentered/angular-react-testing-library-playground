@@ -11,8 +11,9 @@ import { Component, OnInit } from "@angular/core"
           class="capitalize mr-4 text-gray-600 underline"
           [routerLink]="item"
           routerLinkActive="text-indigo-600"
-          >Dynamic-table-controls</a
         >
+          {{ item }}
+        </a>
       </li>
     </ul>
     <router-outlet></router-outlet>
@@ -20,7 +21,10 @@ import { Component, OnInit } from "@angular/core"
   styles: [],
 })
 export class PlaygroundHomeComponent implements OnInit {
-  navitems: string[] = ["dynamic-table-controls"]
+  navitems: string[] = [
+    "dynamic-table-controls",
+    "control-value-accessor-table",
+  ]
   constructor() {}
 
   ngOnInit() {}

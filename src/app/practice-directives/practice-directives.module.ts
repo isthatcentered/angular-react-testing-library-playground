@@ -14,9 +14,9 @@ import { PaddedValueDirective } from "./padded-value/padded-value.directive"
 import { PracticeComponentsModule } from "../practice-components/practice-components.module"
 import { InputDirective } from "./input/input.directive"
 import { CarouselDirective } from "./carousel/carousel.directive"
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from "@angular/forms"
 
-const exports = [
+const declarations = [
   PracticeDirectiveHomeComponent,
   ValidationBorderDirective,
   UnlessDirective,
@@ -34,8 +34,8 @@ const exports = [
   CarouselDirective,
 ]
 @NgModule({
-  declarations: [...exports],
-  exports: [...exports],
+  declarations: [...declarations],
+  exports: [...declarations],
   imports: [
     CommonModule,
     PracticeDirectivesRoutingModule,

@@ -19,6 +19,39 @@ const TAB_CONTROL_SUFFIX = "-tab-control"
 const TAB_PANEL_SUFFIX = "-tab-panel"
 
 @Directive({
+  selector: "[tabs]",
+})
+export class TabsDirective implements OnInit, AfterViewInit {
+  tabs: string[] = []
+
+  @Output()
+  activeTab: EventEmitter<Maybe<string>> = new EventEmitter<Maybe<string>>()
+
+  @Input()
+  defaultActive: Maybe<string>
+
+  constructor(private _el: ElementRef, private _renderer: Renderer2) {}
+
+  ngOnInit(): void {}
+
+  register(id: string) {
+    this.tabs.push(id)
+  }
+
+  clear(id: string) {
+    this.tabs.filter(controlId => controlId !== id)
+  }
+
+  ngAfterViewInit(): void {
+    this.trigger(this.defaultActive || this.tabs[0])
+  }
+
+  trigger(id: string) {
+    this.activeTab.emit(id)
+  }
+}
+
+@Directive({
   selector: "[tabPanel]",
 })
 export class TabPanelDirective implements OnInit {
@@ -184,39 +217,6 @@ export class TabControlsDirective implements OnInit {
   constructor(private _el: ElementRef, private _renderer: Renderer2) {}
 
   ngOnInit(): void {}
-}
-
-@Directive({
-  selector: "[tabs]",
-})
-export class TabsDirective implements OnInit, AfterViewInit {
-  tabs: string[] = []
-
-  @Output()
-  activeTab: EventEmitter<Maybe<string>> = new EventEmitter<Maybe<string>>()
-
-  @Input()
-  defaultActive: Maybe<string>
-
-  constructor(private _el: ElementRef, private _renderer: Renderer2) {}
-
-  ngOnInit(): void {}
-
-  register(id: string) {
-    this.tabs.push(id)
-  }
-
-  clear(id: string) {
-    this.tabs.filter(controlId => controlId !== id)
-  }
-
-  ngAfterViewInit(): void {
-    this.trigger(this.defaultActive || this.tabs[0])
-  }
-
-  trigger(id: string) {
-    this.activeTab.emit(id)
-  }
 }
 
 const declarations = [

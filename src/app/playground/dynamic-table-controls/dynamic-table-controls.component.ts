@@ -1,19 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from "@angular/core"
-import { FormArray, FormControl, FormGroup, Validators } from "@ng-stack/forms"
-import { flatten, keys, map as arrmap } from "ramda"
-import { pipe } from "fp-ts/lib/pipeable"
-import log from "@isthatcentered/log"
-import { ReplaySubject } from "rxjs"
-import { map, takeUntil } from "rxjs/operators"
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@ng-stack/forms';
+import { flatten, keys, map as arrmap } from 'ramda';
+import { pipe } from 'fp-ts/lib/pipeable';
+import log from '@isthatcentered/log';
+import { ReplaySubject } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { doTimes } from '../../helpers';
 
-const doTimes = <T>(times: number, action: (index: number) => T): T[] =>
-  Array.from({ length: times }, (_, ind) => action(ind))
+
+
 
 type FormModel = { codeDevise: string; infos: string }
 

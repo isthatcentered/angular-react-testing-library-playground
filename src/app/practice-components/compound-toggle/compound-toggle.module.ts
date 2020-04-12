@@ -8,6 +8,22 @@ import {
 } from "@angular/core"
 import { CommonModule } from "@angular/common"
 
+@Directive({
+  selector: "app-toggle, [compound-toggle]",
+})
+export class CompoundToggleDirective {
+  @Output()
+  onToggle: EventEmitter<boolean> = new EventEmitter<boolean>()
+
+  @Input()
+  checked: boolean = false
+
+  toggleStatus() {
+    this.checked = !this.checked
+    this.onToggle.emit(this.checked)
+  }
+}
+
 @Component({
   selector: "compound-toggle-off",
   template: `
@@ -46,22 +62,6 @@ export class CompoundToggleButtonComponent {
 
   handleChange() {
     this.toggleDirective.toggleStatus()
-  }
-}
-
-@Directive({
-  selector: "app-toggle, [compound-toggle]",
-})
-export class CompoundToggleDirective {
-  @Output()
-  onToggle: EventEmitter<boolean> = new EventEmitter<boolean>()
-
-  @Input()
-  checked: boolean = false
-
-  toggleStatus() {
-    this.checked = !this.checked
-    this.onToggle.emit(this.checked)
   }
 }
 
